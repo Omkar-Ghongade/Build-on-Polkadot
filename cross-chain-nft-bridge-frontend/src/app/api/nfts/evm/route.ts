@@ -30,11 +30,10 @@ async function fetchNftsForChain(
   if (!res.ok) return [];
   const data = (await res.json()) as {
     ownedNfts?: Array<{
-      contract: { address: string };
+      contract: { address: string; name?: string };
       tokenId: string;
       title?: string;
       media?: Array<{ gateway: string }>;
-      contract?: { name?: string };
     }>;
   };
   const list = data.ownedNfts ?? [];

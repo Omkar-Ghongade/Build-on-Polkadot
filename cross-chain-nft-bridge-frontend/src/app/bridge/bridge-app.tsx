@@ -70,10 +70,10 @@ export function BridgeApp() {
         if (accounts.length > 0) setPolkadotAddress(accounts[0].address);
       }
       if (typeof window !== "undefined" && window.ethereum) {
-        const accounts = await window.ethereum.request({
+        const accounts = (await window.ethereum.request({
           method: "eth_requestAccounts",
-        });
-        if (accounts?.length > 0) setEvmAddress(accounts[0]);
+        })) as string[] | undefined;
+        if (Array.isArray(accounts) && accounts.length > 0) setEvmAddress(accounts[0]);
       }
     } catch (e) {
       setError("Could not connect. Install Polkadot.js and/or MetaMask.");
@@ -123,7 +123,7 @@ export function BridgeApp() {
           const accounts = (await window.ethereum.request({
             method: "eth_accounts",
           })) as string[] | undefined;
-          if (!cancelled && accounts?.length > 0) {
+          if (!cancelled && Array.isArray(accounts) && accounts.length > 0) {
             setEvmAddress(accounts[0]);
           }
         } catch {

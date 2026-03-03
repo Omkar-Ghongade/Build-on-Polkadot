@@ -36,7 +36,7 @@ export async function fetchPolkadotNfts(
       let collectionName: string | undefined;
 
       try {
-        const itemMeta = await api.query.uniques.itemMetadata(collectionId, itemId);
+        const itemMeta = await api.query.uniques.itemMetadata(collectionId, itemId) as unknown as { isSome: boolean; unwrap: () => { data: { isSome: boolean; unwrap: () => { toHuman?: () => string; toString: () => string } } } };
         if (itemMeta.isSome) {
           const meta = itemMeta.unwrap();
           if (meta.data.isSome) {
@@ -56,7 +56,7 @@ export async function fetchPolkadotNfts(
       }
       if (!name) name = `Collection ${colStr} #${itemStr}`;
       try {
-        const colMeta = await api.query.uniques.collectionMetadata(collectionId);
+        const colMeta = await api.query.uniques.collectionMetadata(collectionId) as unknown as { isSome: boolean; unwrap: () => { data: { isSome: boolean; unwrap: () => { toHuman?: () => string; toString: () => string } } } };
         if (colMeta.isSome) {
           const data = colMeta.unwrap().data;
           if (data.isSome) {

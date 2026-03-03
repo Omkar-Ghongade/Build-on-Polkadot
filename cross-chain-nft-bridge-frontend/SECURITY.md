@@ -16,14 +16,13 @@ Review covered: env/secrets, API usage, wallet handling, XSS/injection, dependen
 
 ---
 
-### 2. `.env` with real key in the repo
+### 2. `.env` / secrets in the repo
 
-- **Where:** `.env` contains `NEXT_PUBLIC_ALCHEMY_ID=B2h9GpVIoSkWHtQDORnjY`.
-- **Risk:** If this file is (or was) tracked by git, the key is in history and should be considered compromised.
+- **Current state:** `.env` uses `ALCHEMY_ID` (server-only); `.gitignore` includes `.env` and `.env.local`, so the key is not committed.
+- **Risk:** If `.env` or any file containing the key was ever committed, the key is in history and should be considered compromised.
 - **Recommendations:**
-  - Ensure `.env` and `.env*.local` are in `.gitignore` (already the case with `.env*`).
-  - If `.env` was ever committed: remove it from the repo and from history (`git rm --cached .env`, then `git filter-branch` or BFG if needed), and **rotate the Alchemy key**.
-  - Use `.env.example` with placeholder values only; developers copy it to `.env` and fill in real values locally.
+  - Never commit `.env` or `.env.local`; use `.env.example` with placeholders only.
+  - If a file with a real key was ever committed: remove it from history and **rotate the Alchemy key**.
 
 ---
 

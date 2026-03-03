@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 declare global {
   interface Window {
     ethereum?: {
-      request: (args: { method: string }) => Promise<string[]>;
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
     };
   }
 }
@@ -42,10 +42,10 @@ export function WalletConnectButton() {
 
       // EVM wallet (e.g. MetaMask)
       if (typeof window !== "undefined" && window.ethereum) {
-        const accounts = await window.ethereum.request({
+        const accounts = (await window.ethereum.request({
           method: "eth_requestAccounts",
-        });
-        if (accounts && accounts.length > 0) {
+        })) as string[] | undefined;
+        if (Array.isArray(accounts) && accounts.length > 0) {
           setEvmAddress(accounts[0]);
         }
       }
