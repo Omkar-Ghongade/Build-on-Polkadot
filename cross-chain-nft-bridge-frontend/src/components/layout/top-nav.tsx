@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export function TopNav() {
   return (
@@ -25,9 +24,12 @@ export function TopNav() {
           >
             How it works
           </Link>
-          <Button variant="secondary" size="sm">
+          <Link
+            href="/bridge"
+            className="inline-flex h-8 items-center justify-center rounded-full border border-zinc-300 bg-white px-3 text-xs font-medium text-zinc-900 transition-colors hover:border-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400/70 focus-visible:ring-offset-2"
+          >
             Launch app
-          </Button>
+          </Link>
         </nav>
       </div>
     </header>
